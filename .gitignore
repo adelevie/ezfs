@@ -9,7 +9,8 @@
 /test/version_tmp/
 /tmp/
 
-*.sqlite
+db/data.sqlite3
+*.sqlite3
 *.log
 
 ## Specific to RubyMotion:
