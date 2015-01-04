@@ -20,10 +20,14 @@
 # Learn more: http://github.com/javan/whenever
 
 # from http://benscheirman.com/2013/12/using-rbenv-in-cron-jobs/
-job_type :rbenv_rake, %Q{export PATH=/opt/rbenv/shims:/opt/rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
-                         cd :path && bundle exec rake :task --silent :output }
+#job_type :rbenv_rake, %Q{export PATH=/opt/rbenv/shims:/opt/rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
+#                         cd :path && bundle exec rake :task --silent :output }
+
+                
 
 set :output, "~/ezfs/cron.log"
+
+job_type :rbenv_rake, "source ~/.bashrc && cd :path && bundle exec rake :task --silent :output"
 
 every 1.minute do
   rbenv_rake "scrape:last_n_days docket_number=14-28 days=2"
