@@ -24,6 +24,7 @@ job_type :rbenv_rake, %Q{export PATH=/opt/rbenv/shims:/opt/rbenv/bin:/usr/bin:$P
                          cd :path && bundle exec rake :task --silent :output }
 
 set :output, "~/ezfs/cron.log"
-# every 1.minute do
-#   rbenv_rake "scrape:all docket_number=12-83"
-# end
+
+every 1.minute do
+  rbenv_rake "scrape:last_n_days docket_number=14-28 days=2"
+end
