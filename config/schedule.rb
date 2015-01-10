@@ -19,11 +19,16 @@
 
 # Learn more: http://github.com/javan/whenever
 
-# change this to your Ubuntu user
-user = "alan"
-
-job_type :rbenv_rake, %Q{export PATH=/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
-                         cd :path && bundle exec rake :task --silent :output }
+# sets rbenv_rake to OS-specific thingy
+require './os'
+if OS.linux?
+  user = "alan" # change this to your Ubuntu user
+  job_type :rbenv_rake, %Q{export PATH=/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
+                           cd :path && bundle exec rake :task --silent :output }
+elsif OS.mac?
+  job_type :rbenv_rake, %Q{export PATH=/opt/rbenv/shims:/opt/rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
+                           cd :path && bundle exec rake :task --silent :output }
+end
                 
 set :output, "~/ezfs/cron.log"
 
