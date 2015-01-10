@@ -4,11 +4,11 @@ development:
   pool: 5
   timeout: 5000
 
-# production:
-#   adapter: postgresql
-#   database:
-#   username:
-#   password:
-#   host:
-#   port:
-#   sslmode:
+production:
+  adapter: postgresql
+  database: 
+  username:
+  password:
+  host:
+  port:
+  sslmode: require
