@@ -19,15 +19,13 @@
 
 # Learn more: http://github.com/javan/whenever
 
-# from http://benscheirman.com/2013/12/using-rbenv-in-cron-jobs/
-#job_type :rbenv_rake, %Q{export PATH=/opt/rbenv/shims:/opt/rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
-#                         cd :path && bundle exec rake :task --silent :output }
+# change this to your Ubuntu user
+user = "alan"
 
+job_type :rbenv_rake, %Q{export PATH=/home/#{user}/.rbenv/shims:/home/#{user}/.rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
+                         cd :path && bundle exec rake :task --silent :output }
                 
-
 set :output, "~/ezfs/cron.log"
-
-job_type :rbenv_rake, "source ~/.bashrc && cd :path && bundle exec rake :task --silent :output"
 
 
 DOCKETS = %w[
