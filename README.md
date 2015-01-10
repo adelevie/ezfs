@@ -38,21 +38,7 @@ Inspect data with a `pry` console:
 $ ruby console.rb
 ```
 
-## Installation
-
-Clone the repo and `cd` into it.
-
-```sh
-$ bundle
-$ bundle exec rake db:migrate
-$ cp db/config.yml.sample db/config.yml
-```
-
-### Databases
-
-Uses `sqlite` for `development` and `postgres` for `production`. The default mode is `development`, but you can change `EZFS_ENV` to `production` on your server.
-
-## Deployment
+## Installation/deployment
 
 (tested on a Digital Ocean, Ubunutu 14 box)
 
@@ -61,14 +47,21 @@ Dependencies:
 - `rbenv`
 - `sudo apt-get install libpq-dev` (for Ubuntu)
 
+
 ```sh
-echo export EZFS_ENV=production >> ~/.bashrc
 git clone https://github.com/adelevie/ezfs.git
 cd ezfs
-touch cron.log
-nano db/config.yml # add your own postgres db config
+cp db/config.yml.sample db/config.yml
+nano db/config.yml
 bundle install --without development
-nano config/schedule.rb # edit the cron schedule
+bundle exec rake db:migrate db=production
+echo export EZFS_ENV=production >> ~/.bashrc
+touch cron.log
+nano config/schedule.rb
 bundle exec whenever --update-crontab
-tail -f cron.log # and watch the scraping happen
+tail -f cron.log
 ```
+
+### Databases
+
+Uses `sqlite` for `development` and `postgres` for `production`. The default mode is `development`, but you can change `EZFS_ENV` to `production` on your server.
