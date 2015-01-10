@@ -62,7 +62,7 @@ Dependencies:
 - `sudo apt-get install libpq-dev` (for Ubuntu)
 
 ```sh
-echo EZFS_ENV=production >> ~/.bashrc
+echo export EZFS_ENV=production >> ~/.bashrc
 git clone https://github.com/adelevie/ezfs.git
 cd ezfs
 touch cron.log

@@ -2,8 +2,8 @@ require './scraper'
 
 require 'bundler/setup'
 
-require 'standalone_migrations'
-StandaloneMigrations::Tasks.load_tasks
+require 'active_record_migrations'
+ActiveRecordMigrations.load_tasks
 
 module Scrape
   def self.all(docket_number)

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'activerecord', '~> 4.2.0'
 gem 'rails'
-gem 'standalone_migrations'
+gem 'active_record_migrations'
 gem 'rake'
 gem 'pry'
 gem 'ecfs', '~> 0.5'
