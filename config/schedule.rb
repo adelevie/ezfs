@@ -29,6 +29,14 @@ set :output, "~/ezfs/cron.log"
 
 job_type :rbenv_rake, "source ~/.bashrc && cd :path && bundle exec rake :task --silent :output"
 
-every 1.minute do
-  rbenv_rake "scrape:last_n_days docket_number=14-28 days=2"
+
+DOCKETS = %w[
+  12-83
+  14-261
+]
+
+every 1.day do
+  DOCKETS.each do |docket_number|
+    rbenv_rake "scrape:track docket_number=#{docket_number}"
+  end
 end
