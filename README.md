@@ -45,6 +45,7 @@ Clone the repo and `cd` into it.
 ```sh
 $ bundle
 $ bundle exec rake db:migrate
+$ cp db/config.yml.sample db/config.yml
 ```
 
 ### Databases
