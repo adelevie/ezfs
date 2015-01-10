@@ -26,6 +26,12 @@ Resume a scrape (these things take a while and are prone to interruptions):
 $ bundle exec rake scrape:resume docket_number=12-83
 ```
 
+Track a docket over time (good for running once every `n` days with `cron` or the `whenever` gem):
+
+```sh
+$ bundle exec rake scrape:track docket_number=12-83
+```
+
 Inspect data with a `pry` console:
 
 ```sh
@@ -40,3 +46,7 @@ Clone the repo and `cd` into it.
 $ bundle
 $ bundle exec rake db:migrate
 ```
+
+### Databases
+
+Uses `sqlite` for `development` and `postgres` for `production`. The default mode is `development`, but you can change `EZFS_ENV` to `production` on your server.
