@@ -51,3 +51,23 @@ $ cp db/config.yml.sample db/config.yml
 ### Databases
 
 Uses `sqlite` for `development` and `postgres` for `production`. The default mode is `development`, but you can change `EZFS_ENV` to `production` on your server.
+
+## Deployment
+
+(tested on a Digital Ocean, Ubunutu 14 box)
+
+Dependencies:
+
+- `rbenv`
+- `sudo apt-get install libpq-dev` (for Ubuntu)
+
+```sh
+git clone https://github.com/adelevie/ezfs.git
+cd ezfs
+touch cron.log
+nano db/config.yml # add your own postgres db config
+bundle install --without development
+nano config/schedule.rb # edit the cron schedule
+bundle exec whenever --update-crontab
+tail -f cron.log # and watch the scraping happen
+```
