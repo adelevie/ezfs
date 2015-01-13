@@ -1,8 +1,9 @@
 require './scraper'
 
 require 'bundler/setup'
-
+require 'yaml'
 require 'active_record_migrations'
+
 ActiveRecordMigrations.load_tasks
 
 module Scrape
