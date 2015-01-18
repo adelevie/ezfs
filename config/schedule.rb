@@ -30,7 +30,7 @@ elsif OS.mac?
                            cd :path && bundle exec rake :task --silent :output }
 end
                 
-set :output, "~/ezfs/cron.log"
+set :output, "~/ezfs/log/cron.log"
 
 
 DOCKETS = %w[
