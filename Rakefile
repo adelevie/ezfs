@@ -34,26 +34,26 @@ end
 
 namespace :scrape do
   desc "Downloads all filings for a given docket"
-  task :all => :environment do
+  task :all do
     docket_number = ENV['docket_number']
     Scrape.all(docket_number)
   end
   
   desc "Downloads all filings for a given docket with the last n days"
-  task :last_n_days => :environment do
+  task :last_n_days do
     docket_number = ENV['docket_number']
     days = ENV['days']
     Scrape.last_n_days(docket_number, days)
   end
   
   desc "Resumes a scrape for a given docket based on the most recent filings already in the database"
-  task :resume => :environment do
+  task :resume do
     docket_number = ENV['docket_number']
     Scrape.resume(docket_number)
   end
   
   desc "A meta-task composed of Scrape.all and Scrape.last_n_days to monitor a docket"
-  task :track => :environment do
+  task :track do
     docket_number = ENV['docket_number']
     Scrape.track(docket_number)
   end
