@@ -5,6 +5,8 @@ if [ ! -f db/config.yml ]; then
   cp db/config.yml.sample db/config.yml
 fi
 
+mkdir -p log
+
 if [ ! -f scraper.log ]; then
   touch log/scraper.log
 fi
