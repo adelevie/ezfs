@@ -7,5 +7,4 @@ gem 'rake'
 gem 'pry'
 gem 'ecfs', '~> 0.5'
 gem 'activesupport', '~> 4.2.0'
-gem 'whenever', require: false
 gem 'pg'
