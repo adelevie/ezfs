@@ -7,8 +7,8 @@ require 'ecfs'
 require 'active_support/core_ext/date'
 require 'logger'
 
-logger = Logger.new('log/scraper.log')
-logger.level = Logger::INFO
+LOGGER = Logger.new('log/scraper.log')
+LOGGER.level = Logger::INFO
 
 class Scraper
   def self.get_filings(docket_number, days=nil)
@@ -36,9 +36,9 @@ class Scraper
           
 
           if f.save
-            logger.info("Filing saved: #{f.inspect}")
+            LOGGER.info("Filing saved: #{f.inspect}")
           else
-            logger.info("Filing not saved: #{f.inspect}")
+            LOGGER.info("Filing not saved: #{f.inspect}")
           end
         end
       end
