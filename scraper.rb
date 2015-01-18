@@ -5,6 +5,10 @@ require 'bundler/setup'
 require 'pry'
 require 'ecfs'
 require 'active_support/core_ext/date'
+require 'logger'
+
+logger = Logger.new('log/scraper.log')
+logger.level = Logger::INFO
 
 class Scraper
   def self.get_filings(docket_number, days=nil)
@@ -29,9 +33,13 @@ class Scraper
             citation: filing['citation'],
             date_received: date
           })
+          
 
-          p f
-          p f.save
+          if f.save
+            logger.info("Filing saved: #{f.inspect}")
+          else
+            logger.info("Filing not saved: #{f.inspect}")
+          end
         end
       end
     end.get

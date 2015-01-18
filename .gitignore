@@ -13,6 +13,9 @@ db/data.sqlite3
 *.sqlite3
 *.log
 
+log/scraper.log
+log/cron.log
+
 db/config.yml
 
 ## Specific to RubyMotion:
