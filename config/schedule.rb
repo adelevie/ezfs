@@ -36,6 +36,12 @@ set :output, "~/ezfs/log/cron.log"
 DOCKETS = %w[
   12-83
   14-261
+  14-171
+  02-278
+  12-375
+  14-90
+  10-90
+  02-6
 ]
 
 every 1.day do
