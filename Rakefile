@@ -1,8 +1,10 @@
 require './scraper'
+require '/.models'
 
 require 'bundler/setup'
 require 'yaml'
 require 'active_record_migrations'
+require 'ecfs'
 
 ActiveRecordMigrations.load_tasks
 
@@ -29,6 +31,43 @@ module Scrape
     else
       Scrape.resume(docket_number)
     end
+  end
+end
+
+module Test
+  def self.docket(docket_number)
+    proceeding = ECFS::Proceeding.find(docket_number)
+    
+    local_count = Filing.where(docket_number: docket_number).count
+    fcc_count = proceecing['total_filings'].to_i
+    
+    if fcc_count == local_count
+      STDOUT.puts "Counts match for #{docket_number} (local: #{local_count}, fcc: #{fcc_count})"      
+    elsif fcc_count > local_count
+      STDOUT.puts "FCC lists more filings for #{docket_number} (local: #{local_count}, fcc: #{fcc_count})"      
+    elsif fcc_count < local_count
+      STDOUT.puts "Local lists more filings #{docket_number} (local: #{local_count}, fcc: #{fcc_count})"
+      STDOUT.puts "This is a huge anomaly. You should investigate."   
+    end
+  end
+  
+  def self.all
+    Docket.all.each do |docket_number|
+      docket(docket_number)
+    end
+  end
+end
+
+namespace :test do
+  desc "Compares the total number of filings in the database with the total posted on fcc.gov"
+  task :docket do
+    docket_number = ENV['docket_number']
+    Test.docket(docket_number)
+  end
+  
+  desc "Compares all filings counts with their counts on fcc.gov"
+  task :all do
+    Test.all
   end
 end
 
