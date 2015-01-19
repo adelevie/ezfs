@@ -13,6 +13,13 @@ end
                 
 set :output, "~/ezfs/log/cron.log"
 
+# In so many words (and lines of code),
+# this scraper starts checking for updates at midnight.
+# It scrapes two dockets at a time, and waits 20 minutes before
+# scraping another two.
+# Refer to clock.rb to see how the time is spaced out, semi-
+# intelligently.
+
 @clock = Clock.new(12, 0, 'am')
 
 CONCURRENT_SCRAPES = 2
