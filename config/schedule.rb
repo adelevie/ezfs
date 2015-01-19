@@ -32,20 +32,41 @@ end
                 
 set :output, "~/ezfs/log/cron.log"
 
-
-DOCKETS = %w[
-  12-83
-  14-261
-  14-171
-  02-278
-  12-375
-  14-90
-  10-90
-  02-6
+SEED_DOCKETS = [
+  "12-83",
+  "14-261",
+  "14-171",
+  "02-278",
+  "02-171",
+  "02-178",
+  "12-375",
+  "14-90",
+  "10-90",
+  "02-6",
+  "10-254",
+  "07-250",
+  "12-3"
 ]
 
+require './models'
+
+class Docket
+  def self.all
+    dockets = Filing.pluck(:docket_number).uniq
+    if dockets.empty?
+      return SEED_DOCKETS
+    else
+      return dockets
+    end
+  end
+end
+
 every 1.day do
-  DOCKETS.each do |docket_number|
+  Docket.all.each do |docket_number|
     rbenv_rake "scrape:track docket_number=#{docket_number}"
   end
+end
+
+every 5.days do
+  rbenv_rake ""
 end
