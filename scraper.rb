@@ -20,7 +20,7 @@ class Scraper
       end
       
       q.after_scrape = Proc.new do |filings|
-        filings.each do |filing|
+        filings.map do |filing|
           fcc_id = filing['url'].split('view?id=')[1]
           date = DateTime.strptime(filing["date_received"], "%m/%d/%Y")
 
@@ -34,13 +34,22 @@ class Scraper
             date_received: date
           })
           
-
-          if f.save
-            LOGGER.info("Filing saved: #{f.inspect}")
-          else
-            LOGGER.info("Filing not saved: #{f.inspect}")
-          end
+          f
         end
+        
+        filings_to_save = filings.select {|filing| filing.valid?}
+        filings_not_to_save = filings.select {|filing| !filing.valid?}
+        
+        Filing.import filings_to_save
+
+        filings_to_save.each do |f|
+          LOGGER.info("Filing saved: #{f.inspect}")
+        end
+        
+        filings_not_to_save.each do |f|
+          LOGGER.info("Filing not saved: #{f.inspect}")
+        end
+        
       end
     end.get
   end

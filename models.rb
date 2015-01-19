@@ -1,6 +1,7 @@
 require 'bundler/setup'
 
 require 'active_record'
+require 'activerecord-import'
 require 'logger'
 require 'yaml'
 require 'pry'
