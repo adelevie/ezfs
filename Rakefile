@@ -39,7 +39,7 @@ module Test
     proceeding = ECFS::Proceeding.find(docket_number)
     
     local_count = Filing.where(docket_number: docket_number).count
-    fcc_count = proceecing['total_filings'].to_i
+    fcc_count = proceeding['total_filings'].to_i
     
     if fcc_count == local_count
       STDOUT.puts "Counts match for #{docket_number} (local: #{local_count}, fcc: #{fcc_count})"      
