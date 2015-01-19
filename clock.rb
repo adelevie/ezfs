@@ -32,8 +32,13 @@ class Clock
   def add_1_hour!
     if @hour == 11
       toggle_ampm!
+      @hour = @hour + 1
     end
-    @hour = @hour + 1
+    if @hour == 12
+      @hour = 1
+    else
+      @hour = @hour + 1
+    end
   end
   
   def add_1_minute!
