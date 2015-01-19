@@ -37,12 +37,12 @@ class Scraper
           f
         end
         
-        filings_to_save = all_filings.select {|filing| filing.valid?}
-        filings_not_to_save = all_filings.select {|filing| !filing.valid?}
+        filings_to_save = filings.select {|filing| filing.valid?}
+        filings_not_to_save = filings.select {|filing| !filing.valid?}
         
-        saved_filings = Filing.import(filings_to_save)
+        Filing.import filings_to_save
 
-        saved_filings.each do |f|
+        filings_to_save.each do |f|
           LOGGER.info("Filing saved: #{f.inspect}")
         end
         
