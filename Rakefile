@@ -1,5 +1,5 @@
 require './scraper'
-require '/.models'
+require './models'
 
 require 'bundler/setup'
 require 'yaml'
