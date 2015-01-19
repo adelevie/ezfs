@@ -61,12 +61,8 @@ class Docket
   end
 end
 
-every 1.day do
+every 1.day at: '6:00 am' do do
   Docket.all.each do |docket_number|
     rbenv_rake "scrape:track docket_number=#{docket_number}"
   end
-end
-
-every 5.days do
-  rbenv_rake ""
 end
