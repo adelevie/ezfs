@@ -10,7 +10,7 @@ configuration = YAML::load(IO.read('db/config.yml'))
 ActiveRecord::Base.establish_connection(configuration['production'])
 
 class Filing < ActiveRecord::Base
-  validates_uniqueness_of :fcc_id
+  validates_uniqueness_of :fcc_id, scope: :docket_number
 end
 
 SEED_DOCKETS = [
