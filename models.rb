@@ -12,3 +12,62 @@ ActiveRecord::Base.establish_connection(configuration['production'])
 class Filing < ActiveRecord::Base
   validates_uniqueness_of :fcc_id
 end
+
+SEED_DOCKETS = [
+  "12-83",
+  "14-261",
+  "14-171",
+  "02-278",
+  "02-171",
+  "02-178",
+  "12-375",
+  "14-90",
+  "10-90",
+  "02-6",
+  "10-254",
+  "07-250",
+  "12-3",
+  "03-185",
+  "12-1",
+  "10-56",
+  "14-159",
+  "14-262",
+  "14-263",
+  "12-80",
+  "14-127",
+  "03-123",
+  "10-51",
+  "05-231",
+  "RM-11728",
+  "10-145",
+  "14-259",
+  "11-42",
+  "05-68",
+  "09-109",
+  "05-337",
+  "06-122",
+  "07-135",
+  "13-39",
+  "14-158",
+  "14-93",
+  "14-169",
+  "15-5",
+  "07-52",
+  "07-149",
+  "11-59",
+  "04-223",
+  "07-21",
+  "07-38"
+]
+
+class Docket
+  def self.all
+    dockets = Filing.pluck(:docket_number).uniq
+    if dockets.empty?
+      return SEED_DOCKETS
+    else
+      return dockets
+    end
+  end
+end
+
