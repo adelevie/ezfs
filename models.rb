@@ -5,12 +5,14 @@ require 'activerecord-import'
 require 'logger'
 require 'yaml'
 require 'pry'
+require 'searchkick'
 
 ActiveRecord::Base.logger = Logger.new('debug.log')
 configuration = YAML::load(IO.read('db/config.yml'))
 ActiveRecord::Base.establish_connection(configuration['production'])
 
 class Filing < ActiveRecord::Base
+  searchkick
   validates_uniqueness_of :fcc_id, scope: :docket_number
 end
 

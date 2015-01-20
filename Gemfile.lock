@@ -54,10 +54,21 @@ GEM
       pdf-reader
       pry
       spreadsheet
+    elasticsearch (1.0.6)
+      elasticsearch-api (= 1.0.6)
+      elasticsearch-transport (= 1.0.6)
+    elasticsearch-api (1.0.6)
+      multi_json
+    elasticsearch-transport (1.0.6)
+      faraday
+      multi_json
     erubis (2.7.0)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     hashery (2.1.1)
+    hashie (3.3.2)
     hike (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
@@ -81,6 +92,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.5.0)
     multi_json (1.10.1)
+    multipart-post (2.0.0)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
     nokogiri (1.6.5)
@@ -98,6 +110,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     rack (1.6.0)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.2.0)
@@ -127,6 +141,14 @@ GEM
     rake (10.4.2)
     ruby-ole (1.2.11.8)
     ruby-rc4 (0.1.5)
+    searchkick (0.8.5)
+      activemodel
+      elasticsearch (>= 1)
+      hashie
+    sinatra (1.4.5)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
     slop (3.6.0)
     spreadsheet (1.0.0)
       ruby-ole (>= 1.0)
@@ -163,3 +185,5 @@ DEPENDENCIES
   pry
   rails
   rake
+  searchkick
+  sinatra
