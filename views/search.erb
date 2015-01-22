@@ -1,33 +1,31 @@
-<html>
-  <head>
-    <style>
-      input#searchbar { 
-        padding: 10px; 
-        font-size: 26px;
-        width: 700px;
-      }
-    </style>
-  </head>
-  
-  <body>
-    <h3><a href="/<%= docket_number %>">Docket No. <%= docket_number %></a></h3>
-    
-    <form method="GET" action="/<%= docket_number %>/search">
-      <input id="searchbar" type="text" name="q" />
-      <input type="submit" value="search" />
-    </form>
-  </body>
-</html>
 
-<hr />
+<h3><a href="/<%= docket_number %>">Docket No. <%= docket_number %></a></h3>
+
+<form method="GET" action="/<%= docket_number %>/search">
+  <div class="flakes-search">
+  	<input class="search-box" placeholder="e.g. Comments of Public Knowledge" autofocus name="q" />
+  </div>
+  <br />
+  <button class="button-darkblue">Search</button>
+</form>
 
 <% if results %>
+
+  <hr />
   
   <% if results.length > 0 %>
   
-    <% results.each do |result| %>
-      <p><a href="<%= result.fcc_url %>"><%= result.citation %> (<%= result.date_received %>)</a></p>
-    <% end %>
+    <ul>
+      <% results.each do |result| %>
+        <li>
+          <h4>
+            <a href="<%= result.fcc_url %>">
+              <%= result.citation %> (<%= result.date_received.to_date %>)
+            </a>
+          </h4>
+        </li>
+      <% end %>
+    </ul>
     
   <% else %>
     <p>Sorry, no results found</p>

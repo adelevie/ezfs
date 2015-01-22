@@ -1,0 +1,7 @@
+<h3>All available dockets (if there's one you'd like listed here, <a href="https://twitter.com/adelevie">reach out</a>):</h3>
+
+<ul>
+  <% dockets.each do |docket| %>
+    <li><a href="/<%= docket %>"><%= docket %></a></li>
+  <% end %>
+</ul>
