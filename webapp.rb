@@ -14,7 +14,7 @@ class WebApp < Sinatra::Base
     use Rack::CommonLogger, file
   end
   
-  set :public_folder, 'public'
+  #set :public_folder, 'public'
   
   get '/' do
     @title = 'home'
