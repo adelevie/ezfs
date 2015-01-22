@@ -11,3 +11,4 @@ gem 'activesupport', '~> 4.2.0'
 gem 'pg'
 gem 'searchkick'
 gem 'sinatra'
+gem 'dotenv-rails', :groups => [:development, :test]

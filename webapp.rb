@@ -4,6 +4,13 @@ require 'sinatra'
 require 'pry'
 
 class WebApp < Sinatra::Base
+  
+  configure do
+    enable :logging
+    file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
+    file.sync = true
+    use Rack::CommonLogger, file
+  end
 
   get '/:docket_number' do
     erb :index, locals: {docket_number: params[:docket_number], results: nil}

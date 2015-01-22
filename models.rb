@@ -1,4 +1,6 @@
 require 'bundler/setup'
+require 'dotenv'
+Dotenv.load
 
 require 'active_record'
 require 'activerecord-import'
@@ -7,9 +9,11 @@ require 'yaml'
 require 'pry'
 require 'searchkick'
 
+EZFS_ENV = ENV.fetch('RACK_ENV', 'development')
+
 ActiveRecord::Base.logger = Logger.new('debug.log')
 configuration = YAML::load(IO.read('db/config.yml'))
-ActiveRecord::Base.establish_connection(configuration['production'])
+ActiveRecord::Base.establish_connection(configuration[EZFS_ENV])
 
 class Filing < ActiveRecord::Base
   searchkick

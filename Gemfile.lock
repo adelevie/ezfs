@@ -49,6 +49,9 @@ GEM
     coderay (1.1.0)
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (1.0.2)
+    dotenv-rails (1.0.2)
+      dotenv (= 1.0.2)
     ecfs (0.5.1)
       mechanize
       pdf-reader
@@ -180,6 +183,7 @@ DEPENDENCIES
   activerecord (~> 4.2.0)
   activerecord-import
   activesupport (~> 4.2.0)
+  dotenv-rails
   ecfs (~> 0.5.1)
   pg
   pry
