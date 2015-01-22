@@ -11,9 +11,15 @@ class WebApp < Sinatra::Base
     file.sync = true
     use Rack::CommonLogger, file
   end
+  
+  set :public_folder, 'public'
+  
+  get '/' do
+    erb :index
+  end
 
   get '/:docket_number' do
-    erb :index, locals: {docket_number: params[:docket_number], results: nil}
+    erb :search, locals: {docket_number: params[:docket_number], results: nil}
   end
 
   get '/:docket_number/search' do
@@ -28,7 +34,7 @@ class WebApp < Sinatra::Base
     if results.length == 1
       redirect results.first.fcc_url
     else  
-      erb :index, locals: {docket_number: params[:docket_number], results: results}
+      erb :search, locals: {docket_number: params[:docket_number], results: results}
     end
   end
 
