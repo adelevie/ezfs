@@ -7,6 +7,8 @@ class WebApp < Sinatra::Base
   
   DOCKETS = Filing.pluck(:docket_number).uniq
   
+  set :public_folder, File.dirname(__FILE__) + '/public'
+  
   configure do
     enable :logging
     file = File.new("#{settings.root}/log/#{settings.environment}.log", 'a+')
