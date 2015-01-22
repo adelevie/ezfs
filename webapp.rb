@@ -17,19 +17,23 @@ class WebApp < Sinatra::Base
   set :public_folder, 'public'
   
   get '/' do
+    @title = 'home'
     erb :index, locals: {dockets: DOCKETS[0..8]}
   end
   
   get '/all' do
+    @title = 'all dockets'
     erb :all, locals: {dockets: DOCKETS}
   end
 
   DOCKETS.each do |docket_number|
     get "/#{docket_number}" do
+      @title = "docket number #{docket_number}"
       erb :search, locals: {docket_number: docket_number, results: nil}
     end
     
     get "/#{docket_number}/search" do
+      @title = "search results for docket dumber #{docket_number}"
       query = params['q']
       docket_number = docket_number
   
