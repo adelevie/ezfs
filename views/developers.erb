@@ -1,0 +1,50 @@
+<h3>Developers</h3>
+
+<p>There's a single endpoint API that provides search results as JSON. Example query:</p>
+
+<pre>
+  curl <%= url('/12-83/search.json?q=ex+parte') %>
+</pre>
+
+<p>Example response (pretty printed):</p>
+
+<pre>
+  {
+    "results": [
+      {
+        "id": 77,
+        "docket_number": "12-83",
+        "name_of_filer": "American Cable Association",
+        "type_of_filing": "NOTICE OF EXPARTE",
+        "fcc_url": "http:\/\/apps.fcc.gov\/ecfs\/comment\/view?id=60000975599",
+        "fcc_id": "60000975599",
+        "citation": "American Cable Association Ex Parte Letter",
+        "date_received": "2014-10-31T00:00:00.000Z"
+      },
+      {
+        "id": 89,
+        "docket_number": "12-83",
+        "name_of_filer": "TiVo Inc.",
+        "type_of_filing": "NOTICE OF EXPARTE",
+        "fcc_url": "http:\/\/apps.fcc.gov\/ecfs\/comment\/view?id=60000983599",
+        "fcc_id": "60000983599",
+        "citation": "TiVo Inc. Ex Parte Letter",
+        "date_received": "2014-11-19T00:00:00.000Z"
+      },
+      {
+        "id": 69,
+        "docket_number": "12-83",
+        "name_of_filer": "American Cable Association",
+        "type_of_filing": "NOTICE OF EXPARTE",
+        "fcc_url": "http:\/\/apps.fcc.gov\/ecfs\/comment\/view?id=60000973859",
+        "fcc_id": "60000973859",
+        "citation": "American Cable Association Ex Parte Letter",
+        "date_received": "2014-10-22T00:00:00.000Z"
+      }
+    ]
+  }   
+</pre>
+
+<br />
+
+<p>Please <a href="https://github.com/adelevie/ezfs/issues">reach out</a> if there's anything else you'd like to see here.</p>

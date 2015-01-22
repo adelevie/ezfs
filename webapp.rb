@@ -2,6 +2,7 @@ require './models'
 require 'bundler/setup'
 require 'sinatra'
 require 'pry'
+require 'json'
 
 class WebApp < Sinatra::Base
   
@@ -27,6 +28,11 @@ class WebApp < Sinatra::Base
     @title = 'all dockets'
     erb :all, locals: {dockets: DOCKETS}
   end
+  
+  get '/developers' do
+    @title = 'developers'
+    erb :developers
+  end
 
   DOCKETS.each do |docket_number|
     get "/#{docket_number}" do
@@ -49,6 +55,19 @@ class WebApp < Sinatra::Base
       else  
         erb :search, locals: {docket_number: docket_number, results: results}
       end
+    end
+    
+    get "/#{docket_number}/search.json" do
+      content_type :json
+      query = params['q']
+      docket_number = docket_number
+  
+      results = Filing.search(where: {docket_number: docket_number, citation: query})
+      if results.length == 0
+        results = Filing.search(query, where: {docket_number: docket_number})
+      end
+  
+      return {results: results}.to_json
     end
   end
 
