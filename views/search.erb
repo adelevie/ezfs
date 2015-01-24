@@ -3,7 +3,13 @@
 
 <form method="GET" action="/<%= docket_number %>/search">
   <div class="flakes-search">
-  	<input class="search-box" placeholder="<%= if query; query; else; 'e.g. Comments of Public Knowledge';end %>" autofocus name="q" />
+  	<input 
+      class="search-box" 
+      placeholder="Comments of Public Knowledge" 
+      autofocus 
+      name="q"
+      <%= if query; "value=#{query}"; end %>
+    />
   </div>
   <br />
   <button class="button-darkblue">Search</button>
