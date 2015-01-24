@@ -49,7 +49,7 @@ class WebApp < Sinatra::Base
       if results.length == 1
         redirect results.first.fcc_url
       else
-        erb :search, locals: {docket_number: docket_number, results: results}
+        erb :search, locals: {docket_number: docket_number, results: results, query: query}
       end
     end
     
