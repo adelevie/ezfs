@@ -18,6 +18,19 @@
     console.info("Thanks for poking around!");
     console.info("Check out <%= url('/developers') %>.")
   </script>
+    
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "url": "https://ecfs.link/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://ecfs.link/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
 </head>
 
 <body>
