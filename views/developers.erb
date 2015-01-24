@@ -3,46 +3,36 @@
 <p>There's a single endpoint API that provides search results as JSON. Example query:</p>
 
 <pre>
-  curl <%= url('/12-83/search.json?q=ex+parte') %>
+  curl -H 'Accept: application/json' <%= url('/search?q=12-83') %> | python -m json.tool
 </pre>
 
-<p>Example response (pretty printed):</p>
+<p>Example response:</p>
 
 <pre>
-  {
+{
     "results": [
-      {
-        "id": 77,
-        "docket_number": "12-83",
-        "name_of_filer": "American Cable Association",
-        "type_of_filing": "NOTICE OF EXPARTE",
-        "fcc_url": "http:\/\/apps.fcc.gov\/ecfs\/comment\/view?id=60000975599",
-        "fcc_id": "60000975599",
-        "citation": "American Cable Association Ex Parte Letter",
-        "date_received": "2014-10-31T00:00:00.000Z"
-      },
-      {
-        "id": 89,
-        "docket_number": "12-83",
-        "name_of_filer": "TiVo Inc.",
-        "type_of_filing": "NOTICE OF EXPARTE",
-        "fcc_url": "http:\/\/apps.fcc.gov\/ecfs\/comment\/view?id=60000983599",
-        "fcc_id": "60000983599",
-        "citation": "TiVo Inc. Ex Parte Letter",
-        "date_received": "2014-11-19T00:00:00.000Z"
-      },
-      {
-        "id": 69,
-        "docket_number": "12-83",
-        "name_of_filer": "American Cable Association",
-        "type_of_filing": "NOTICE OF EXPARTE",
-        "fcc_url": "http:\/\/apps.fcc.gov\/ecfs\/comment\/view?id=60000973859",
-        "fcc_id": "60000973859",
-        "citation": "American Cable Association Ex Parte Letter",
-        "date_received": "2014-10-22T00:00:00.000Z"
-      }
+        {
+            "citation": "Order of Media Bureau",
+            "date_received": "2014-12-19T00:00:00.000Z",
+            "docket_number": "12-83",
+            "fcc_id": "60001005975",
+            "fcc_url": "http://apps.fcc.gov/ecfs/comment/view?id=60001005975",
+            "id": 90,
+            "name_of_filer": "Media Bureau",
+            "type_of_filing": "ORDER"
+        },
+        {
+            "citation": "CBS Corporation Ex Parte Letter",
+            "date_received": "2014-11-19T00:00:00.000Z",
+            "docket_number": "12-83",
+            "fcc_id": "60000983582",
+            "fcc_url": "http://apps.fcc.gov/ecfs/comment/view?id=60000983582",
+            "id": 88,
+            "name_of_filer": "CBS Corporation",
+            "type_of_filing": "NOTICE OF EXPARTE"
+        }
     ]
-  }   
+}
 </pre>
 
 <br />

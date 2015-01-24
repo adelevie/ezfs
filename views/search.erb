@@ -1,11 +1,8 @@
-
-<h3><a href="/<%= docket_number %>">Docket No. <%= docket_number %></a></h3>
-
-<form method="GET" action="/<%= docket_number %>/search">
+<form method="GET" action="/search">
   <div class="flakes-search">
   	<input 
       class="search-box" 
-      placeholder="Comments of Public Knowledge" 
+      placeholder="e.g. <%= example_query || 'comments of public knowledge' %>" 
       autofocus 
       name="q"
       <%= if query; "value='#{query}'"; end %>
@@ -21,20 +18,31 @@
   
   <% if results.length > 0 %>
   
-    <ul>
-      <% results.each do |result| %>
-        <li>
-          <h4>
-            <a href="<%= result.fcc_url %>">
-              <%= result.citation %> (<%= result.date_received.to_date %>)
-            </a>
-          </h4>
-        </li>
-      <% end %>
-    </ul>
-    
+    <table class="flakes-table">
+  		<!--<colgroup>
+  			<col span="1" style="width:20px">
+  			<col span="1" style="width:40%">
+  		</colgroup>-->
+  		<thead>
+  			<tr>
+  				<td>Filing</td>
+          <td>Docket</td>
+  				<td>Date Received</td>
+  			</tr>
+  		</thead>
+  		<tbody>
+        <% results.each do |result| %>
+    			<tr>
+    			  <td><a href="<%= result.fcc_url %>"><%= result.citation %></a></td>
+            <td><%= result.docket_number %></td>
+    			  <td><%= result.date_received.to_date %></td>
+    			</tr>
+        <% end %>
+  		</tbody>
+  	</table>
+  
   <% else %>
-    <p>Sorry, no results found</p>
+    <p>Sorry, no results found.</p>
   <% end %>
 
 <% end %>

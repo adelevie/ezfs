@@ -45,6 +45,7 @@ GEM
       tzinfo (~> 1.1)
     afm (0.2.2)
     arel (6.0.0)
+    backports (3.6.4)
     builder (3.2.2)
     coderay (1.1.0)
     domain_name (0.5.23)
@@ -152,6 +153,13 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
+    sinatra-contrib (1.4.2)
+      backports (>= 2.0)
+      multi_json
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.0)
+      tilt (~> 1.3)
     slop (3.6.0)
     spreadsheet (1.0.0)
       ruby-ole (>= 1.0)
@@ -191,3 +199,4 @@ DEPENDENCIES
   rake
   searchkick
   sinatra
+  sinatra-contrib

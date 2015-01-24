@@ -1,35 +1,59 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"><!--<![endif]-->
 
+<head>
+	<title>ecfs.link <%= if @title; "| #{@title}"; end %></title>
 
-<h3>How to use:</h3>
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes">
+	<meta charset="UTF-8" />
 
-<p>Each FCC docket has its own search page.</p> 
+	<link rel="stylesheet" type="text/css" href="/css/all.css">
+</head>
 
-<p>For example, docket 12-80 has its own page <a href="/12-80">here</a>.</p>
+<body>
+	<!--[if lt IE 7]>
+		<p class="chromeframe" style="background:#eee; padding:10px; width:100%">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p>
+	<![endif]-->
 
-<p>Once there, search by the name of the filer and the type of filing.</p> 
+		<div id="ezfs-centered-content">
+		  <h1><a href="/">ecfs.link</a></h1>
+      <hr />
+      
+      <form method="GET" action="/search">
+        <div class="flakes-search">
+        	<input 
+            class="search-box" 
+            placeholder="e.g. <%= example_query || 'comments of public knowledge' %>" 
+            autofocus 
+            name="q"
+            <%= if query; "value='#{query}'"; end %>
+          />
+        </div>
+        <br />
+        <button class="button-darkblue">Search</button>
+      </form>
+      
+      <br /><br /><br /><br /><br /><br /><br /><!-- real mature -->
+      <hr />
+      <h4>Built by <a href="https://twitter.com/adelevie">Alan deLevie</a> and <a href="https://github.com/adelevie/ezfs">available on GitHub</a>.</h4>
+		</div>
+      
 
-<p>If there's only one result returned, you'll be redirected right to the filing on ECFS. Examples:</p>
+	<link rel="stylesheet" type="text/css" href="/bower_components/prism/themes/prism.css">
+	<link rel="stylesheet" type="text/css" href="/bower_components/gridforms/gridforms/gridforms.css">
 
-<ul>
-  <li><a href="/02-278/search?q=ex+parte">Ex Parte</a></li>
-  <li><a href="/14-261/search?q=Notice+of+Proposed+Rulemaking">Notice of Proposed Rulemaking</a></li>
-  <li><a href="/14-90/search?q=reply+comments">Reply Comments</a></li>
-  <li><a href="/12-375/search?q=Comments+of+Public+Knowledge">Comments of Public Knowledge</a></li>
-  <li><a href="/12-83/search?q=Comcast+Ex+Parte">Comcast Ex Parte</a></li>
-  <li><a href="/12-83/search?q=Aereo+Letter">Aereo Letter</a></li>
-</ul>
+	<script src="/bower_components/jquery/dist/jquery.js"></script>
+	<script src="/bower_components/snapjs/snap.js"></script>
+	<script src="/bower_components/responsive-elements/responsive-elements.js"></script>
+	<script src="/bower_components/gridforms/gridforms/gridforms.js"></script>
 
-
-<h3>Available dockets:</h3>
-
-<ul>
-  <% dockets.each do |docket| %>
-    <li><a href="/<%= docket %>"><%= docket %></a></li>
-  <% end %>
-  <li><a href="/all">List of all available dockets</a></li>
-</ul>
-
-<h3>Developers</h3>
-
-<p>There is a simple JSON API documented <a href="/developers">here</a>.</p>
-
+	<script src="/js/base.js"></script>
+	<script src="/js/utils.js"></script>
+</body>
+</html>

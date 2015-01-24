@@ -1,12 +1,24 @@
 require './models'
 require 'bundler/setup'
 require 'sinatra'
+require 'sinatra/contrib'
 require 'pry'
 require 'json'
 
 class WebApp < Sinatra::Base
+  register Sinatra::Contrib
   
   DOCKETS = Filing.pluck(:docket_number).uniq
+  
+  def example_query
+    [
+      "12-80",
+      "12-83 ex parte",
+      "comments 12-80",
+      "reply comments of public knowledge 12-80",
+      "verizon ex parte"
+    ].sample
+  end
   
   set :public_folder, File.dirname(__FILE__) + '/public'
   
@@ -21,7 +33,28 @@ class WebApp < Sinatra::Base
   
   get '/' do
     @title = 'home'
-    erb :index, locals: {dockets: DOCKETS[0..8]}
+    erb :index, locals: {dockets: DOCKETS[0..8], query: nil, example_query: example_query}, layout: false
+  end
+  
+  get '/search' do
+    @title = 'search'
+    query = params['q']
+    
+    results, docket_number = Filing.all_search(query)
+    
+    respond_to do |f|
+      f.json do
+        content_type :json
+        return {results: results}.to_json
+      end
+      f.html do
+        if results.length == 1
+          redirect(results.first.fcc_url)
+        else
+          erb :search, locals: {results: results, query: query, example_query: example_query}
+        end
+      end
+    end
   end
   
   get '/all' do
@@ -32,36 +65,6 @@ class WebApp < Sinatra::Base
   get '/developers' do
     @title = 'developers'
     erb :developers
-  end
-
-  DOCKETS.each do |docket_number|
-    get "/#{docket_number}" do
-      @title = "docket number #{docket_number}"
-      erb :search, locals: {docket_number: docket_number, results: nil}
-    end
-    
-    get "/#{docket_number}/search" do
-      @title = "search results for docket dumber #{docket_number}"
-      query = params['q']
-      docket_number = docket_number
-      
-      results = Filing.docket_search(docket_number, query)
-      if results.length == 1
-        redirect results.first.fcc_url
-      else
-        erb :search, locals: {docket_number: docket_number, results: results, query: query}
-      end
-    end
-    
-    get "/#{docket_number}/search.json" do
-      content_type :json
-      query = params['q']
-      docket_number = docket_number
-  
-      results = Filing.docket_search(docket_number, query)
-  
-      return {results: results}.to_json
-    end
   end
 
 end

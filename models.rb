@@ -19,18 +19,7 @@ class Filing < ActiveRecord::Base
   searchkick
   validates_uniqueness_of :fcc_id, scope: :docket_number
   
-  def self.docket_search(docket_number,query)
-    # results = Filing.search(where: {docket_number: docket_number, citation: query})
-    # if results.length == 0
-    #   results = Filing.search(query, where: {docket_number: docket_number})
-    # end
-    #
-    # if results.length == 1
-    #   redirect results.first.fcc_url
-    # else
-    #   erb :search, locals: {docket_number: docket_number, results: results}
-    # end
-    
+  def self.docket_search(docket_number, query)    
     results = self.search(where: {docket_number: docket_number, citation: query})
     if results.length == 0
       results = self.search(query, where: {docket_number: docket_number})
@@ -38,6 +27,34 @@ class Filing < ActiveRecord::Base
 
     return results
   end
+  
+  def self.all_search(query)
+    re1 = '(\\d+)'	# Integer Number 1
+    re2 = '(-)'	# Any Single Character 1
+    re3 = '(\\d+)'	# Integer Number 2
+    re = (re1+re2+re3)
+    m = Regexp.new(re,Regexp::IGNORECASE)
+    
+    results = []
+    docket_number = nil
+    
+    if m.match(query)
+      docket_number = m.match(query)[0]   
+      stripped_query = query.gsub(docket_number, "").strip
+      
+      if stripped_query.empty?
+        results = self.where(docket_number: docket_number).order("date_received DESC").all
+      else
+        results = self.docket_search(docket_number, stripped_query)
+      end
+    else
+      results = self.search(query)
+    end
+  
+    return results, docket_number
+
+  end
+  
 end
 
 SEED_DOCKETS = [
