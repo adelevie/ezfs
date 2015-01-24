@@ -18,6 +18,26 @@ ActiveRecord::Base.establish_connection(configuration[EZFS_ENV])
 class Filing < ActiveRecord::Base
   searchkick
   validates_uniqueness_of :fcc_id, scope: :docket_number
+  
+  def self.docket_search(docket_number,query)
+    # results = Filing.search(where: {docket_number: docket_number, citation: query})
+    # if results.length == 0
+    #   results = Filing.search(query, where: {docket_number: docket_number})
+    # end
+    #
+    # if results.length == 1
+    #   redirect results.first.fcc_url
+    # else
+    #   erb :search, locals: {docket_number: docket_number, results: results}
+    # end
+    
+    results = self.search(where: {docket_number: docket_number, citation: query})
+    if results.length == 0
+      results = self.search(query, where: {docket_number: docket_number})
+    end
+
+    return results
+  end
 end
 
 SEED_DOCKETS = [

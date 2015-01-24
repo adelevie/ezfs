@@ -44,15 +44,11 @@ class WebApp < Sinatra::Base
       @title = "search results for docket dumber #{docket_number}"
       query = params['q']
       docket_number = docket_number
-  
-      results = Filing.search(where: {docket_number: docket_number, citation: query})
-      if results.length == 0
-        results = Filing.search(query, where: {docket_number: docket_number})
-      end
-  
+      
+      results = Filing.docket_search(docket_number, query)
       if results.length == 1
         redirect results.first.fcc_url
-      else  
+      else
         erb :search, locals: {docket_number: docket_number, results: results}
       end
     end
@@ -62,17 +58,10 @@ class WebApp < Sinatra::Base
       query = params['q']
       docket_number = docket_number
   
-      results = Filing.search(where: {docket_number: docket_number, citation: query})
-      if results.length == 0
-        results = Filing.search(query, where: {docket_number: docket_number})
-      end
+      results = Filing.docket_search(docket_number, query)
   
       return {results: results}.to_json
     end
   end
-
-
-
-
 
 end
