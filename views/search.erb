@@ -40,6 +40,16 @@
         <% end %>
   		</tbody>
   	</table>
+    
+    <br />
+    
+    <div id="json">
+      <p>Get results as JSON:</p>
+    
+      <pre>
+  curl -H 'Accept: application/json' <%= url("/search?q=#{query}") %> | python -m json.tool
+      </pre>
+    </div>
   
   <% else %>
     <p>Sorry, no results found.</p>
