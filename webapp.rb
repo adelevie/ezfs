@@ -16,7 +16,12 @@ class WebApp < Sinatra::Base
       "12-83 ex parte",
       "comments 12-80",
       "reply comments of public knowledge 12-80",
-      "verizon ex parte"
+      "verizon ex parte",
+      "10-90 petition for waiver",
+      "fiber to the home",
+      "notice of proposed rulemaking",
+      "consumer and governmental affair bureau",
+      "wireless telecommunications bureau"
     ].sample
   end
   
