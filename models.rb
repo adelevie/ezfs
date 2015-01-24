@@ -43,7 +43,7 @@ class Filing < ActiveRecord::Base
       stripped_query = query.gsub(docket_number, "").strip
       
       if stripped_query.empty?
-        results = self.where(docket_number: docket_number).order("date_received DESC").all
+        results = self.search(where: {docket_number: docket_number})
       else
         results = self.docket_search(docket_number, stripped_query)
       end
