@@ -39,6 +39,7 @@ class WebApp < Sinatra::Base
   get '/search' do
     @title = 'search'
     query = params['q']
+    @title << " | #{query}" if !query.empty?
     
     results, docket_number = Filing.all_search(query)
     
