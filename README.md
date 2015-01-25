@@ -55,13 +55,18 @@ cp db/config.yml.sample db/config.yml
 nano db/config.yml
 bundle install --without development
 bundle exec rake db:migrate db=production
-echo export EZFS_ENV=production >> ~/.bashrc
-touch cron.log
+touch log/cron.log
+touch log/scraper.log
 nano config/schedule.rb
 bundle exec whenever --update-crontab
-tail -f cron.log
+source .env
+nano .env
+./restart.sh # serves the site at localhost:4567
 ```
 
-### Databases
+Works really great with [nginx-ssl](https://github.com/vzvenyach/nginx-ssl):
 
-Uses `sqlite` for `development` and `postgres` for `production`. The default mode is `development`, but you can change `EZFS_ENV` to `production` on your server.
+```
+sudo bash bootstrap.sh -d -p 4567 -s test.example.com
+```
+
