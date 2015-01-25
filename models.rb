@@ -38,6 +38,9 @@ class Filing < ActiveRecord::Base
     query.gsub!("nprm", "Notice of Proposed Rulemaking")
     query.gsub!("NPRM", "Notice of Proposed Rulemaking")
     
+    query.gsub!("fnprm", "Further Notice of Proposed Rulemaking")
+    query.gsub!("FNPRM", "Further Notice of Proposed Rulemaking")
+    
     results = []
     docket_number = nil
     
