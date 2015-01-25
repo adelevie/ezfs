@@ -1,5 +1,5 @@
-xml.instruct! :xml, :version => '1.0'
-xml.rss :version => "2.0" do
+xml.instruct! :xml, version: '1.0'
+xml.rss version: '2.0', xmlns: "atom='http://www.w3.org/2005/Atom'" do
   xml.channel do
     xml.title "ecfs.link"
     xml.description "Feed for #{query}"
@@ -14,5 +14,7 @@ xml.rss :version => "2.0" do
         xml.guid result.fcc_url
       end
     end
+    
+    xml.atom(link: "href='http://dallas.example.com/rss.xml'", rel: "self", type: "application/rss+xml")
   end
 end
