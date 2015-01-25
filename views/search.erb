@@ -44,17 +44,19 @@
     <br />
     
     <div id="json">
-      <p>Get results as JSON:</p>
+      <h4>Get results as JSON:</h4>
     
       <pre>
   curl -H 'Accept: application/json' <%= url("/search?q=#{query}") %> | python -m json.tool
       </pre>
       
-      <p>or <a href="<%= url("/search.json?q=#{query}") %>"><%= url("/search.json?q=#{query}") %></a></p>
+      <p>(or <a href="<%= url("/search.json?q=#{query}") %>"><%= url("/search.json?q=#{query}") %></a>)</p>
     </div>
     
     <div id="xml">
-      <p>Get results as XML: <a href="<%= url("/search.xml?q=#{query}") %>"><%= url("/search.xml?q=#{query}") %></a></p>
+      <h4>Get results as XML:</h4> 
+      
+      <a href="<%= url("/search.xml?q=#{query}") %>"><%= url("/search.xml?q=#{query}") %></a>
       
       <p>Get results into a Google Spreadsheet by pasting the following into a cell:</p>
       
