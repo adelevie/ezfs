@@ -43,8 +43,16 @@
     
     <br />
     
+    <div id="#rss">
+      <h4>RSS Feed:</h4>
+      
+      <a href="<%= url("/search.rss?q=#{query}") %>">
+        <img src="/img/rss-icon.png" alt="RSS feed for <%= query %>" />
+      </a>
+    </div>
+    
     <div id="json">
-      <h4>Get results as JSON:</h4>
+      <h4>JSON:</h4>
     
       <pre>
   curl -H 'Accept: application/json' <%= url("/search?q=#{query}") %> | python -m json.tool
@@ -54,14 +62,18 @@
     </div>
     
     <div id="xml">
-      <h4>Get results as XML:</h4> 
+      <h4>XML:</h4> 
       
       <a href="<%= url("/search.xml?q=#{query}") %>"><%= url("/search.xml?q=#{query}") %></a>
-      
+    </div>
+    
+    <div id="spreadsheet">
+      <h4>Spreadsheet:</h4>
       <p>Get results into a Google Spreadsheet by pasting the following into a cell:</p>
       
       <pre>=ImportXML(<%= url("/search.xml?q=#{query}") %>, "//result")</pre>
     </div>
+    
   
   <% else %>
     <p>Sorry, no results found.</p>
