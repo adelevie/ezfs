@@ -1,10 +1,11 @@
 xml.instruct! :xml, version: '1.0'
 xml.rss :version => '2.0', 'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
   xml.channel do
+    feed_url = "https://ecfs.link/search.rss?q=#{query}"
     xml.title "ecfs.link"
     xml.description "Feed for #{query}"
-    xml.link "https://ecfs.link"
-    xml.tag! 'atom:link', :rel => 'self', :type => 'application/rss+xml', :href => "https://ecfs.link"
+    xml.link feed_url
+    xml.tag! 'atom:link', :rel => 'self', :type => 'application/rss+xml', :href => feed_url
 
     results.each do |result|
       xml.item do
