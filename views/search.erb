@@ -49,6 +49,16 @@
       <pre>
   curl -H 'Accept: application/json' <%= url("/search?q=#{query}") %> | python -m json.tool
       </pre>
+      
+      <p>or <a href="<%= url("/search.json?q=#{query}") %>"><%= url("/search.json?q=#{query}") %></a></p>
+    </div>
+    
+    <div id="xml">
+      <p>Get results as XML: <a href="<%= url("/search.xml?q=#{query}") %>"><%= url("/search.xml?q=#{query}") %></a></p>
+      
+      <p>Get results into a Google Spreadsheet by pasting the following into a cell:</p>
+      
+      <pre>=ImportXML(<%= url("/search.xml?q=#{query}") %>, "//result")</pre>
     </div>
   
   <% else %>
