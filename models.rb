@@ -27,7 +27,7 @@ class Filing < ActiveRecord::Base
 
     return results
   end
-  
+
   def self.all_search(query)
     re1 = '(\\d+)'	# Integer Number 1
     re2 = '(-)'	# Any Single Character 1

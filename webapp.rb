@@ -5,6 +5,7 @@ require 'sinatra/contrib'
 require 'pry'
 require 'json'
 require 'nokogiri'
+require 'builder'
 
 class WebApp < Sinatra::Base
   register Sinatra::Contrib
@@ -72,6 +73,13 @@ class WebApp < Sinatra::Base
     results, docket_number = Filing.all_search(query)
 
     return {results: results}.to_json
+  end
+  
+  get '/search.rss' do
+    query = params['q']
+    results, docket_number = Filing.all_search(query)
+
+    builder :rss, locals: {results: results, query: query}
   end
   
   get '/search.xml' do

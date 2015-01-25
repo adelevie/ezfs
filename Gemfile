@@ -12,4 +12,5 @@ gem 'pg'
 gem 'searchkick'
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'builder'
 gem 'dotenv-rails', :groups => [:development, :test]

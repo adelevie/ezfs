@@ -191,6 +191,7 @@ DEPENDENCIES
   activerecord (~> 4.2.0)
   activerecord-import
   activesupport (~> 4.2.0)
+  builder
   dotenv-rails
   ecfs (~> 0.5.1)
   pg
