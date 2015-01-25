@@ -22,7 +22,7 @@ class WebApp < Sinatra::Base
       "fiber to the home",
       "notice of proposed rulemaking",
       "14-261 nprm",
-      "consumer and governmental affair bureau",
+      "consumer and governmental affairs bureau",
       "wireless telecommunications bureau"
     ].sample
   end
