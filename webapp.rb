@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sinatra/contrib'
 require 'pry'
 require 'json'
+require 'nokogiri'
 
 class WebApp < Sinatra::Base
   register Sinatra::Contrib
@@ -61,6 +62,35 @@ class WebApp < Sinatra::Base
         end
       end
     end
+
+  end
+  
+  get '/search.json' do
+    content_type :json      
+    query = params['q']
+    results, docket_number = Filing.all_search(query)
+
+    return {results: results}.to_json
+  end
+  
+  get '/search.xml' do
+    content_type :xml
+    query = params['q']
+    results, docket_number = Filing.all_search(query)
+
+    xml_results = results.map do |result|
+      {
+        docket_number: result.docket_number,
+        name_of_filer: result.name_of_filer,
+        type_of_filing: result.type_of_filing,
+        fcc_url: result.fcc_url,
+        fcc_id: result.fcc_id,
+        citation: result.citation,
+        date_received: result.date_received
+      }
+    end
+    
+    return {results: xml_results}.to_xml
   end
   
   get '/all' do
