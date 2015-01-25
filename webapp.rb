@@ -21,7 +21,7 @@ class WebApp < Sinatra::Base
       "10-90 petition for waiver",
       "fiber to the home",
       "notice of proposed rulemaking",
-      "nprm 12-80",
+      "14-261 nprm",
       "consumer and governmental affair bureau",
       "wireless telecommunications bureau"
     ].sample
