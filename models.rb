@@ -19,10 +19,12 @@ class Filing < ActiveRecord::Base
   searchkick
   validates_uniqueness_of :fcc_id, scope: :docket_number
   
+  LIMIT = 500
+  
   def self.docket_search(docket_number, query)    
-    results = self.search(where: {docket_number: docket_number, citation: query})
+    results = self.search(where: {docket_number: docket_number, citation: query}, limit: LIMIT)
     if results.length == 0
-      results = self.search(query, where: {docket_number: docket_number})
+      results = self.search(query, where: {docket_number: docket_number}, limit: LIMIT)
     end
 
     return results
@@ -54,12 +56,12 @@ class Filing < ActiveRecord::Base
       stripped_query = query.gsub(docket_number, "").strip
       
       if stripped_query.empty?
-        results = self.search(where: {docket_number: docket_number})
+        results = self.search(where: {docket_number: docket_number}, limit: LIMIT)
       else
         results = self.docket_search(docket_number, stripped_query)
       end
     else
-      results = self.search(query)
+      results = self.search(query, limit: LIMIT)
     end
   
     return results, docket_number
