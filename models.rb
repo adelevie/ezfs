@@ -35,6 +35,8 @@ class Filing < ActiveRecord::Base
     re = (re1+re2+re3)
     m = Regexp.new(re,Regexp::IGNORECASE)
     
+    query.gsub!("*", "")
+    
     query.gsub!("nprm", "Notice of Proposed Rulemaking")
     query.gsub!("NPRM", "Notice of Proposed Rulemaking")
     
