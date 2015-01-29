@@ -71,7 +71,7 @@
       <h4>Spreadsheet:</h4>
       <p>Get results into a Google Spreadsheet by pasting the following into a cell:</p>
       
-      <pre>=ImportXML(<%= url("/search.xml?q=#{query}") %>, "//result")</pre>
+      <pre>=ImportXML("<%= url("/search.xml?q=#{query}") %>", "//result")</pre>
     </div>
     
   
