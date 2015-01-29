@@ -34,27 +34,12 @@ class Scraper
             date_received: date
           })
           
-          f
+          if f.save
+            LOGGER.info("Filing saved: #{f.inspect}")
+          else
+            LOGGER.info("Filing saved: #{f.inspect}")
+          end
         end
-        
-        if f.save
-          LOGGER.info("Filing saved: #{f.inspect}")
-        else
-          LOGGER.info("Filing saved: #{f.inspect}")
-        end
-        
-        # filings_to_save = all_filings.select {|filing| filing.valid?}
-        # filings_not_to_save = all_filings.select {|filing| !filing.valid?}
-        #
-        # Filing.import filings_to_save
-        #
-        # filings_to_save.each do |f|
-        #   LOGGER.info("Filing saved: #{f.inspect}")
-        # end
-        #
-        # filings_not_to_save.each do |f|
-        #   LOGGER.info("Filing saved: #{f.inspect}")
-        # end
         
       end
     end.get
