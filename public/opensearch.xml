@@ -4,5 +4,5 @@
 Search the FCC's Electronic Comment Filing System
 </Description>
 <InputEncoding>UTF-8</InputEncoding>
-<Url type="text/html" method="get" template="https://ecfs.link/search/?q={searchTerms}"/>
+<Url type="text/html" method="get" template="https://ecfs.link/search?q={searchTerms}"/>
 </OpenSearchDescription>
