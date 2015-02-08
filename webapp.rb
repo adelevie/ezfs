@@ -24,7 +24,9 @@ class WebApp < Sinatra::Base
       "notice of proposed rulemaking",
       "14-261 nprm",
       "consumer and governmental affairs bureau",
-      "wireless telecommunications bureau"
+      "wireless telecommunications bureau",
+      "22 FCC Rcd 17791",
+      "16 FCC Rcd 6547"
     ].sample
   end
   
@@ -49,18 +51,20 @@ class WebApp < Sinatra::Base
     query = params['q']
     @title << " | #{query}" if !query.empty?
     
-    results, docket_number = Filing.all_search(query)
+    results, docket_number, fcc_rcd = Filing.all_search(query)
     
     respond_to do |f|
       f.json do
         content_type :json
-        return {results: results}.to_json
+        return {results: results, fcc_rcd: fcc_rcd}.to_json
       end
       f.html do
-        if results.length == 1
+        if results.length == 1 && fcc_rcd.nil?
           redirect(results.first.fcc_url)
+        elsif results.length == 0 && !fcc_rcd.nil?
+          redirect(fcc_rcd[:url])
         else
-          erb :search, locals: {results: results, query: query, example_query: example_query}
+          erb :search, locals: {results: results, query: query, example_query: example_query, fcc_rcd: fcc_rcd, params: params}
         end
       end
     end
@@ -70,22 +74,22 @@ class WebApp < Sinatra::Base
   get '/search.json' do
     content_type :json      
     query = params['q']
-    results, docket_number = Filing.all_search(query)
+    results, docket_number, fcc_rcd = Filing.all_search(query)
 
-    return {results: results}.to_json
+    return {results: results, fcc_rcd: fcc_rcd}.to_json
   end
   
   get '/search.rss' do
     query = params['q']
-    results, docket_number = Filing.all_search(query)
+    esults, docket_number, fcc_rcd = Filing.all_search(query)
 
-    builder :rss, locals: {results: results, query: query}
+    builder :rss, locals: {results: results, fcc_rcd: fcc_rcd, query: query}
   end
   
   get '/search.xml' do
     content_type :xml
     query = params['q']
-    results, docket_number = Filing.all_search(query)
+    results, docket_number, fcc_rcd = Filing.all_search(query)
 
     xml_results = results.map do |result|
       {
@@ -99,7 +103,7 @@ class WebApp < Sinatra::Base
       }
     end
     
-    return {results: xml_results}.to_xml
+    return {results: xml_results, fcc_rcd: rcc_rcd}.to_xml
   end
   
   get '/all' do

@@ -5,12 +5,16 @@
       placeholder="e.g. <%= example_query || 'comments of public knowledge' %>" 
       autofocus 
       name="q"
-      <%= if query; "value='#{query}'"; end %>
+      <%= if params['q']; "value='#{params['q']}'"; end %>
     />
   </div>
   <br />
   <button class="button-darkblue">Search</button>
 </form>
+
+<br />
+
+<br />
 
 <% if results %>
 
@@ -40,6 +44,12 @@
         <% end %>
   		</tbody>
   	</table>
+     
+    <br />
+    
+    <% if fcc_rcd %>
+      <h3>Citation to FCC Record detected: <a href="<%= fcc_rcd[:url] %>"><%= fcc_rcd[:volume] %> FCC Rcd <%= fcc_rcd[:page] %></a></h3>
+    <% end %>
     
     <br />
     
@@ -55,7 +65,7 @@
       <h4>JSON:</h4>
     
       <pre>
-  curl -H 'Accept: application/json' <%= url("/search?q=#{query}") %> | python -m json.tool
+curl -H 'Accept: application/json' <%= url("/search?q=#{query}") %> | python -m json.tool
       </pre>
       
       <p>(or <a href="<%= url("/search.json?q=#{query}") %>"><%= url("/search.json?q=#{query}") %></a>)</p>

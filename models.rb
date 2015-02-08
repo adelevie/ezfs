@@ -29,31 +29,76 @@ class Filing < ActiveRecord::Base
 
     return results
   end
+  
+  def self.extract_fcc_rcd(text)
+    txt=text
+
+    re1='(\\d+)'	# Integer Number 1
+    re2='(\\s+)'	# White Space 1
+    re3='(FCC)'	# Word 1
+    re4='(\\s+)'	# White Space 2
+    re5='((?:[a-z][a-z]+))'	# Word 2
+    re6='(\\s+)'	# White Space 3
+    re7='(\\d+)'	# Integer Number 2
+
+    re=(re1+re2+re3+re4+re5+re6+re7)
+    m=Regexp.new(re,Regexp::IGNORECASE);
+    if m.match(txt)
+      int1=m.match(txt)[1];
+      ws1=m.match(txt)[2];
+      word1=m.match(txt)[3];
+      ws2=m.match(txt)[4];
+      word2=m.match(txt)[5];
+      ws3=m.match(txt)[6];
+      int2=m.match(txt)[7];
+      puts "("<<int1<<")"<<"("<<ws1<<")"<<"("<<word1<<")"<<"("<<ws2<<")"<<"("<<word2<<")"<<"("<<ws3<<")"<<"("<<int2<<")"<< "\n"
+   
+      return {
+        type: :fcc_rcd,
+        volume: int1,
+        page: int2,
+        url: "https://fccrcd.link/#{int1}/#{int2}"
+      }
+    else
+      return nil
+    end
+  end
 
   def self.all_search(query)
+    query_copy = query
+    
+    fcc_rcd = extract_fcc_rcd(query)
+    
     re1 = '(\\d+)'	# Integer Number 1
     re2 = '(-)'	# Any Single Character 1
     re3 = '(\\d+)'	# Integer Number 2
     re = (re1+re2+re3)
     m = Regexp.new(re,Regexp::IGNORECASE)
     
-    query.gsub!("*", "")
+    if fcc_rcd
+      query_copy.gsub!("#{fcc_rcd[:volume]} FCC Rcd #{fcc_rcd[:page]}", "")
+      query_copy.gsub!("#{fcc_rcd[:volume]} FCC RCD #{fcc_rcd[:page]}", "")
+      query_copy.gsub!("#{fcc_rcd[:volume]} fcc rcd #{fcc_rcd[:page]}", "")    
+    end
     
-    query.gsub!("nprm", "Notice of Proposed Rulemaking")
-    query.gsub!("NPRM", "Notice of Proposed Rulemaking")
+    query_copy.gsub!("*", "")
     
-    query.gsub!("fnprm", "Further Notice of Proposed Rulemaking")
-    query.gsub!("FNPRM", "Further Notice of Proposed Rulemaking")
+    query_copy.gsub!("nprm", "Notice of Proposed Rulemaking")
+    query_copy.gsub!("NPRM", "Notice of Proposed Rulemaking")
     
-    query.gsub!("r&o", "Report and Order")
-    query.gsub!("R&O", "Report and Order")
+    query_copy.gsub!("fnprm", "Further Notice of Proposed Rulemaking")
+    query_copy.gsub!("FNPRM", "Further Notice of Proposed Rulemaking")
+    
+    query_copy.gsub!("r&o", "Report and Order")
+    query_copy.gsub!("R&O", "Report and Order")
     
     results = []
+    
     docket_number = nil
     
     if m.match(query)
-      docket_number = m.match(query)[0]   
-      stripped_query = query.gsub(docket_number, "").strip
+      docket_number = m.match(query_copy)[0]   
+      stripped_query = query_copy.gsub(docket_number, "").strip
       
       if stripped_query.empty?
         results = self.search(where: {docket_number: docket_number}, limit: LIMIT)
@@ -61,11 +106,10 @@ class Filing < ActiveRecord::Base
         results = self.docket_search(docket_number, stripped_query)
       end
     else
-      results = self.search(query, limit: LIMIT)
+      results = self.search(query_copy, limit: LIMIT)
     end
   
-    return results, docket_number
-
+    return results, docket_number, fcc_rcd
   end
   
 end
