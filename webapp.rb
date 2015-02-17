@@ -81,7 +81,7 @@ class WebApp < Sinatra::Base
   
   get '/search.rss' do
     query = params['q']
-    esults, docket_number, fcc_rcd = Filing.all_search(query)
+    results, docket_number, fcc_rcd = Filing.all_search(query)
 
     builder :rss, locals: {results: results, fcc_rcd: fcc_rcd, query: query}
   end
