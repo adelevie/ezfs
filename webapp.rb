@@ -103,7 +103,7 @@ class WebApp < Sinatra::Base
       }
     end
     
-    return {results: xml_results, fcc_rcd: rcc_rcd}.to_xml
+    return {results: xml_results, fcc_rcd: fcc_rcd}.to_xml
   end
   
   get '/all' do
